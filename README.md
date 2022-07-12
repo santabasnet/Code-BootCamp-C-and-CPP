@@ -9,4 +9,4 @@ The goal of the boot-camp is to have live experience in modeling and writing a s
 
 We use multi-files project for the component development, i.e. multiple part of codes are organized through headers and their respective file sources.
 
-For further details, please go through this pdf[].
+For further details, please go through this pdf[https://github.com/santabasnet/Code-BootCamp-C-and-CPP/blob/main/bootcamp-eec-doc.pdf].

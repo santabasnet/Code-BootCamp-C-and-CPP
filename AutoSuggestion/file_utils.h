@@ -1,44 +1,49 @@
 /* ************************************************* */
-/* This file is a part of AutoSuggestion. */
-/* Created by santa on 2022-03-28. */
+/* This file is a part of WordSuggestion. */
+/* Created by santa on 2022-03-27. */
 /* Everest Engineering College. */
 /* Sanepa - 2, Lalitpur. */
 /* https://www.eemc.com.np */
 /* ************************************************* */
 
-#ifndef AUTOSUGGESTION_FILE_UTILS_H
-#define AUTOSUGGESTION_FILE_UTILS_H
+#include <string>
+#include <vector>
+#include <set>
+#include <list>
+#include <unordered_map>
 
-#include "text_utils.h"
+using namespace std;
 
-/**
- * Default file delimiters.
- */
-#define DEFAULT_DELIMITER "\n,{},[]"
+#ifndef WORDSUGGESTION_FILE_UTILS_H
+#define WORDSUGGESTION_FILE_UTILS_H
 
-/**
- * Calculates the file size.
- */
-long fileSizeOf(const char *);
 
-/**
- * Reads the file content and returns the char pointer.
- */
-char *fileContentOf(const char *);
+vector<string> read_from_file(string);
 
-/**
- * Displays the tokens in the console file.
- */
-void displayTokens(char **items, long, const char *);
+void display_in_console(const vector<pair<int, int>> &, string);
 
-/**
- * Displays the TokenContainer in the console file.
- */
-void displayTokens(TokenContainer *, const char *);
+void display_in_console(const vector<string>&, string);
 
-/**
- * Displays the Word and their associated grams.
- */
-void displayWordGrams(WordGrams *, const char *);
+void display_in_console(const set<int>&, string);
 
-#endif //AUTOSUGGESTION_FILE_UTILS_H
+void display_in_console(const list<string>&, string);
+
+void display_in_console(const vector<pair<string, int>> &, string);
+
+void display_in_console(const vector<pair<string, double>> &, string);
+
+void display_in_console(const vector<pair<int, double>> &, string);
+
+void display_in_console(const unordered_map<string, int> &, string);
+
+void display_in_console(const unordered_map<string, double>&, string);
+
+void display_in_console(const unordered_map<string, vector<string>> &, string);
+
+void display_in_console(const unordered_map<string, vector<pair<string, double>>> &, string);
+
+void display_in_console(const unordered_map<string, vector<pair<int, double>>> &, string);
+
+vector<string> all_tokens(string const &, const char *);
+
+#endif //WORDSUGGESTION_FILE_UTILS_H

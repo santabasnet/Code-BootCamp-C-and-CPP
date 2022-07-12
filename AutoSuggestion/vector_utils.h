@@ -1,37 +1,39 @@
 /* ************************************************* */
-/* This file is a part of AutoSuggestion. */
-/* Created by santa on 2022-03-28. */
+/* This file is a part of WordSuggestion. */
+/* Created by santa on 2022-03-26. */
 /* Everest Engineering College. */
 /* Sanepa - 2, Lalitpur. */
 /* https://www.eemc.com.np */
 /* ************************************************* */
 
-#ifndef AUTOSUGGESTION_VECTOR_UTILS_H
-#define AUTOSUGGESTION_VECTOR_UTILS_H
+#include <vector>
+
+using namespace std;
+
+#ifndef WORDSUGGESTION_VECTOR_UTILS_H
+#define WORDSUGGESTION_VECTOR_UTILS_H
+
+const double THRESHOLD_SCORE = 0.0;
+const int MAX_SUGGESTIONS = 10;
 
 /**
- * Vector Definition.
+ * Computes the magnitude of the vector.
  */
-typedef struct {
-    double *coefficients;
-    long entryCount;
-} Vector;
+double magnitude(const vector<pair<int, double>> &);
 
 /**
- * Calculates the magnitude of a vector.
+ * Extract value of the indexed score.
  */
-double magnitude(Vector *);
+double indexed_score(const vector<pair<int, double>> &, int);
 
 /**
- * Calculates the dot product of two vectors.
+ * Computes dot product of two indexed vectors.
  */
-double dotProduct(Vector *, Vector *);
-
+double dot_product_of(const vector<pair<int, double>> &, const vector<pair<int, double>> &);
 
 /**
- * Calculate the cosine value between two vectors.
+ * Computes cosine value of the angle between two vectors.
  */
-double costTheta(Vector *, Vector *);
+double cos_theta(const vector<pair<int, double>> &, const vector<pair<int, double>> &);
 
-
-#endif //AUTOSUGGESTION_VECTOR_UTILS_H
+#endif //WORDSUGGESTION_VECTOR_UTILS_H

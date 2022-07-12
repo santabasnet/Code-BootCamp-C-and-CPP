@@ -1,41 +1,61 @@
-#include <cstdio>
-#include <cstring>
-#include "text_utils.h"
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+#include "vector_utils.h"
+#include "string_utils.h"
 #include "file_utils.h"
+#include "dimension.h"
+#include "constant_literals.h"
+
+using namespace std;
 
 /**
- * Global variable for File Names.
- */
-const char dictionaryFile[] = "../resources/dictionary.txt";
-
-/**
- * Word Auto Suggestion Project Demo In C.
- * @return 0 with successful output.
+ * Main program starts from here.
  */
 int main() {
+
     /* 1. Read all the words from the file. */
-    char *dictionaryContent = fileContentOf(dictionaryFile);
-    //printf("%s", dictionaryContent);
+    cout << endl << "****************************************************";
+    cout << endl << "Generating statistics ... ";
+    string dictionary_file = "../resources/dictionary.txt";
+    vector<string> wordList = read_from_file(dictionary_file);
 
     /* 2. Initialize sample words with sorted values. */
-    TokenContainer *wordList = tokenize(dictionaryContent);
-    //displayTokens(wordList, "WordList : ");
-    TokenContainer *sample = sampledWords(wordList, SAMPLE_SIZE);
-    //displayTokens(sample, "Sampled Word List: ");
+    vector<string> sampledWords = randomized_words(wordList, MAX_RANDOM_WORDS);
+
+    /* 3. Initialize the word and their ngram dictionary. */
+    unordered_map<string, vector<string>> word_ngrams = accumulate_ngrams(sampledWords);
 
     /**
-     * 3. Generate word and their ngrams of sample words.
+     * 4. Initialize total dimensions and all the word vectors, I wrote this in the constructor.
      */
-    WordGrams *wordGrams = accumulateWordGrams(sample);
-    //displayWordGrams(wordGrams, "NGrams of Sampled Words: ");
+    dimension suggestion_system(word_ngrams);
+    cout << "Completed !";
+    cout << endl << "****************************************************";
 
-    char text[] = "nonprofit";
-    TokenContainer *token = nGramsOf(text);
-    displayTokens(token, "Tokens : ");
+    while (true) {
 
-    //int *numbers = sampledNumbers(50L, 1000);
-    //printf("\n");
-    //for (int i = 0; i < 50; i++) printf("\t%d", numbers[i]);
+        /* 6. Define input vector for a word. */
+        string partial_word;
+        cout << endl << "Enter a partial word: ";
+        cin >> partial_word;
+
+        /* 7. Get ranked words. */
+        vector<pair<string, double>> suggested_words = suggestion_system.suggest(partial_word);
+        display_in_console(suggested_words, "Suggested words with scores: ");
+
+        /**
+         * 8. Take a chance to run another epoch.
+         */
+        string choice;
+        cout << endl << "Do you want to try another (Y/N) ? ";
+        cin >> choice;
+        transform(choice.begin(), choice.end(), choice.begin(), ::tolower);
+        if (choice == "y" || choice == "yes") continue;
+        break;
+    }
 
     return 0;
 }
+/*--- End of Main ---*/
